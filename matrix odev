@@ -1,0 +1,83 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<time.h>
+
+
+#define ROW1 2
+#define COL1 3
+#define ROW2 3
+#define COL2 2
+
+void printMatrix(int matrix[ROW1][COL1]);
+void addMatrices(int mat1[ROW1][COL1], int mat2[ROW2][COL2], int result[ROW1][COL2]);
+void multiplyMatrices(int mat1[ROW1][COL1], int mat2[ROW2][COL2], int result[ROW1][COL2]);
+
+int main() {
+    int mat1[ROW1][COL1];
+    int mat2[ROW2][COL2];
+    int sum[ROW1][COL2];
+    int product[ROW1][COL2];
+
+
+    srand(time(NULL));
+
+
+    for (int i = 0; i < ROW1; i++) {
+        for (int j = 0; j < COL1; j++) {
+            mat1[i][j] = rand() % 101;
+        }
+    }
+
+
+    for (int i = 0; i < ROW2; i++) {
+        for (int j = 0; j < COL2; j++) {
+            mat2[i][j] = rand() % 101;
+        }
+    }
+
+    printf("Matrix 1:\n");
+    printMatrix(mat1);
+
+    printf("Matrix 2:\n");
+    printMatrix(mat2);
+
+
+    addMatrices(mat1, mat2, sum);
+    printf("Toplam Matrix:\n");
+    printMatrix(sum);
+
+
+    multiplyMatrices(mat1, mat2, product);
+    printf("Çarpım Matrix:\n");
+    printMatrix(product);
+
+    return 0;
+}
+
+void printMatrix(int matrix[ROW1][COL1]) {
+    for (int i = 0; i < ROW1; i++) {
+        for (int j = 0; j < COL1; j++) {
+            printf("%d ", matrix[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+void addMatrices(int mat1[ROW1][COL1], int mat2[ROW2][COL2], int result[ROW1][COL2]) {
+    for (int i = 0; i < ROW1; i++) {
+        for (int j = 0; j < COL1; j++) {
+            result[i][j] = mat1[i][j] + mat2[i][j];
+        }
+    }
+}
+
+void multiplyMatrices(int mat1[ROW1][COL1], int mat2[ROW2][COL2], int result[ROW1][COL2]) {
+    for (int i = 0; i < ROW1; i++) {
+        for (int j = 0; j < COL2; j++) {
+            result[i][j] = 0;
+            for (int k = 0; k < COL1; k++) {
+                result[i][j] += mat1[i][k] * mat2[k][j];
+            }
+        }
+    }
+}
